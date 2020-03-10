@@ -24,7 +24,19 @@ $(document).ready(() => {
     })
     $(".dot1").click((e) => {
         $(e.target).closest(".window").css("opacity", "0")
-        console.log("why")
+    })
+
+    $(".icon-dash").click((e)=>{
+        $(".task").removeClass("n");
+        
+        $(".a-window").css("z-index", "10")
+        $(".task").css("z-index", "999")
+    })
+
+    $(".icon-mail").click((e)=>{
+        $(".mail").removeClass("n");
+        $(".a-window").css("z-index", "10")
+        $(".mail").css("z-index", "999")
     })
 })
 
