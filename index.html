@@ -9,20 +9,24 @@
     <link rel="stylesheet" href="css/style.min.css">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
-    <div class="content">
+    <div class="content" id="app">
         <div class="header"><span class="apple"></span><span class="app">LMC 6313 UX Story</span></div>
         <div class="footer">
             <div class="footer-bar">
                 <div class="application">
 
                     <div class="bubble">
-                        <p>Finder</p>
+                        <p>Dashboard</p>
                     </div>
                     <div class="icon">
-                        <img src="assets/Icon-Finder.png" alt="">
+                        <img src="assets/Icon-Dash.png" alt="">
                     </div>
                 </div>
                 <div class="application">
@@ -69,16 +73,23 @@
                         <img src="assets/Icon-Books.png" alt="">
                     </div>
                 </div>
+                <div class="application">
+                    <div class="bubble">
+                        <p>VS Code</p>
+                    </div>
+                    <div class="icon">
+                        <img src="assets/Icon-vs.png" alt="">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="sticker draggable a-window">
             <div class="sticker-bar">
             </div>
             <textarea name="" id="" cols="30" rows="10"></textarea>
-
         </div>
 
-        <div class="window draggable a-window">
+        <div class="n window draggable a-window">
             <div class="dots">
                 <div class="dot dot1">
                     <img src="assets/dot-cross.png" alt="">
@@ -98,72 +109,306 @@
             </div>
         </div>
 
-        <script>
-            $(document).ready(() => {
+        <div class="task n window draggable a-window">
+            <div class="dots">
+                <div class="dot dot1">
+                    <img src="assets/dot-cross.png" alt="">
+                </div>
+                <div class="dot dot2">
+                    <img src="assets/dot-bar.png" alt="">
+                </div>
+                <div class="dot dot3">
+                    <img src="assets/dot-expand.png" alt="">
+                </div>
+            </div>
 
-                $(".a-window").mousedown((e) => {
-                    $(".a-window").css("z-index", "10")
-                    $(e.target).closest(".a-window").css("z-index", "999")
-                })
-                $(".dot1").click((e) => {
-                    $(e.target).closest(".window").css("opacity", "0")
-                    console.log("why")
-                })
-            })
+            <div class="task-left">
+                <div class="task-tab task-progress active">
+                    Progress
+                </div>
+                <div class="task-tab task-profile">
+                    Profile
+                </div>
+                <div class="task-tab task-history">
+                    History Projects
+                </div>
 
+            </div>
 
-            // target elements with the "draggable" class
-            interact('.draggable')
-                .draggable({
-                    // enable inertial throwing
-                    inertia: false,
-                    // keep the element within the area of it's parent
-                    modifiers: [
-                        interact.modifiers.restrictRect({
-                            restriction: 'parent',
-                            endOnly: true
-                        })
-                    ],
-                    // enable autoScroll
-                    autoScroll: true,
+            <div class="task-right">
+                <div class="task-page page-1">
+                    <div class="progress">
+                        Current Progress: {{progress}}%
+                        <div class="progress-bar">
+                            <div class="progress-bar-complete" v-bind:style="{ width: progress +'%' }">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        You have {{time}} days left.
+                    </div>
+                    <div class="action">
+                        You have {{action}} actions left today.
+                    </div>
+                    <div class="datagrid">
+                        <div class="data">
+                            Client satisfaction
+                            <span class="number">{{client}}</span>
+                        </div>
+                        <div class="data">
+                            Developer satisfaction
+                            <span class="number">{{developer}}</span>
+                        </div>
+                        <div class="data">
+                            Visual
+                            <span class="number">{{visual}}</span>
+                        </div>
+                        <div class="data">
+                            Robustness
+                            <span class="number">{{robustness}}</span>
+                        </div>
+                        <div class="data">
+                            Innovation
+                            <span class="number">{{innovation}}</span>
+                        </div>
+                        <div class="data">
+                            Complexity
+                            <span class="number">{{complexity}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-page page-2 n">
+                    <div class="money">
+                        You have ${{money}}.
+                    </div>
+                    <div class="money">
+                        Abilities:
+                    </div>
+                    <div class="datagrid">
+                        <div class="data">
+                            Knowledge of Principles
+                            <span class="number">{{knowledge}}</span>
+                        </div>
+                        <div class="data">
+                            Research and Analytical
+                            <span class="number">{{research}}</span>
+                        </div>
+                        <div class="data">
+                            Creativity
+                            <span class="number">{{creativity}}</span>
+                        </div>
+                        <div class="data">
+                            Graphic Skills
+                            <span class="number">{{graphic}}</span>
+                        </div>
+                        <div class="data">
+                            Communication
+                            <span class="number">{{communication}}</span>
+                        </div>
+                        <div class="data">
+                            Coding
+                            <span class="number">{{coding}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    listeners: {
-                        // call this function on every dragmove event
-                        move: dragMoveListener,
+        <div class="mail window draggable a-window">
+            <div class="dots">
+                <div class="dot dot1">
+                    <img src="assets/dot-cross.png" alt="">
+                </div>
+                <div class="dot dot2">
+                    <img src="assets/dot-bar.png" alt="">
+                </div>
+                <div class="dot dot3">
+                    <img src="assets/dot-expand.png" alt="">
+                </div>
+            </div>
+            <div class="top">
+            </div>
+            <div class="mail-content">
+                <div class="mail-left">
+                    <div class="mail-from mail-1">
+                        <p class="whofrom">Developer</p>
+                        <p class="subject">Request of ....</p>
+                        <p> Hi there, I am writing...</p>
 
-                        // call this function on every dragend event
-                        end(event) {
-                            var textEl = event.target.querySelector('p')
+                    </div>
+                </div>
+                <div class="mail-right">
+                    <div class="mail-text mail-1">mailtext</div>
+                </div>
+            </div>
+        </div>
 
-                            textEl && (textEl.textContent =
-                                'moved a distance of ' +
-                                (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-                                    Math.pow(event.pageY - event.y0, 2) | 0))
-                                    .toFixed(2) + 'px')
-                        }
-                    }
-                })
-
-            function dragMoveListener(event) {
-                var target = event.target
-                // keep the dragged position in the data-x/data-y attributes
-                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-                // translate the element
-                target.style.webkitTransform =
-                    target.style.transform =
-                    'translate(' + x + 'px, ' + y + 'px)'
-
-                // update the posiion attributes
-                target.setAttribute('data-x', x)
-                target.setAttribute('data-y', y)
-            }
-
-            // this function is used later in the resizing and gesture demos
-            window.dragMoveListener = dragMoveListener
-        </script>
     </div>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                progress: 0,
+                time: 7,
+                action: 3,
+                client: 0,
+                developer: 0,
+                visual: 0,
+                innovation: 0,
+                robustness: 0,
+                complexity: 0,
+                knowledge: 0,
+                research: 0,
+                creativity: 0,
+                graphic: 0,
+                communication: 0,
+                coding: 0,
+                money: 0
+            },
+            methods: {
+                getTime: function () {
+                    console.log(this.time);
+                    return this.time
+                },
+                addTime: function (num) {
+                    this.time += num;
+                    console.log(this.time);
+                },
+                getAction: function () {
+                    console.log(this.action);
+                    return this.action
+                },
+                addAction: function (num) {
+                    this.action += num;
+                    console.log(this.action);
+                },
+                getAction: function () {
+                    console.log(this.action);
+                    return this.action
+                },
+                addAction: function (num) {
+                    this.action += num;
+                    console.log(this.action);
+                },
+
+                getclient: function () {
+                    console.log(this.client);
+                    return this.client
+                },
+                addclient: function (num) {
+                    this.client += num;
+                    console.log(this.client);
+                },
+
+                getdeveloper: function () {
+                    console.log(this.developer);
+                    return this.developer
+                },
+                adddeveloper: function (num) {
+                    this.developer += num;
+                    console.log(this.developer);
+                },
+                getvisual: function () {
+                    console.log(this.visual);
+                    return this.visual
+                },
+                addvisual: function (num) {
+                    this.visual += num;
+                    console.log(this.visual);
+                },
+                getinnovation: function () {
+                    console.log(this.innovation);
+                    return this.innovation
+                },
+                addinnovation: function (num) {
+                    this.innovation += num;
+                    console.log(this.innovation);
+                },
+
+                getrobustness: function () {
+                    console.log(this.robustness);
+                    return this.robustness
+                },
+                addrobustness: function (num) {
+                    this.robustness += num;
+                    console.log(this.robustness);
+                },
+
+                getcomplexity: function () {
+                    console.log(this.complexity);
+                    return this.complexity
+                },
+                addcomplexity: function (num) {
+                    this.complexity += num;
+                    console.log(this.complexity);
+                },
+                getknowledge: function () {
+                    console.log(this.knowledge);
+                    return this.knowledge
+                },
+                addknowledge: function (num) {
+                    this.knowledge += num;
+                    console.log(this.knowledge);
+                },
+
+                getresearch: function () {
+                    console.log(this.research);
+                    return this.research
+                },
+                addresearch: function (num) {
+                    this.research += num;
+                    console.log(this.research);
+                },
+
+                getcreativity: function () {
+                    console.log(this.creativity);
+                    return this.creativity
+                },
+                addcreativity: function (num) {
+                    this.creativity += num;
+                    console.log(this.creativity);
+                },
+                getgraphic: function () {
+                    console.log(this.graphic);
+                    return this.graphic
+                },
+                addgraphic: function (num) {
+                    this.graphic += num;
+                    console.log(this.graphic);
+                },
+                getcommunication: function () {
+                    console.log(this.communication);
+                    return this.communication
+                },
+                addcommunication: function (num) {
+                    this.communication += num;
+                    console.log(this.communication);
+                },
+
+                getcoding: function () {
+                    console.log(this.coding);
+                    return this.coding
+                },
+                addcoding: function (num) {
+                    this.coding += num;
+                    console.log(this.coding);
+                },
+
+                getmoney: function () {
+                    console.log(this.money);
+                    return this.money
+                },
+                addmoney: function (num) {
+                    this.money += num;
+                    console.log(this.money);
+                },
+
+
+            },
+        })
+    </script>
 </body>
 
 </html>
