@@ -1,3 +1,20 @@
+@font-face {
+  font-family: SF-Pro-Display;
+  src: url("../assets/SF-Pro-Display-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SF-Pro-Display;
+  font-weight: 300;
+  src: url("../assets/SF-Pro-Display-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SF-Pro-Display;
+  font-weight: bold;
+  src: url("../assets/SF-Pro-Display-Bold.otf") format("opentype");
+}
+
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -5,7 +22,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  font-family: UniversLTStd;
+  font-family: SF-Pro-Display;
   font-weight: 400;
   font-style: normal;
   color: #323232;
@@ -42,7 +59,7 @@
 .header span {
   text-align: center;
   font-size: 0.9rem;
-  padding-top: 5px;
+  padding-top: 3px;
 }
 
 .header .app {
@@ -131,11 +148,25 @@
   width: 250px;
   height: 220px;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15), 0 4px 28px 0 rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
 }
 
 .sticker-bar {
   height: 18px;
   background-color: #fbe961;
+  display: flex;
+}
+
+.sticker textarea {
+  margin: 10px;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+.sticker textarea:focus {
+  outline: 0;
 }
 
 .window {
@@ -149,6 +180,8 @@
   left: 100px;
   border-radius: 8px;
   border: 0.5px solid rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
 }
 
 .window .dots {
@@ -187,4 +220,14 @@
 
 .window .dots .dot3 {
   background-color: #62c555;
+}
+
+.window-content {
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.draggable {
+  cursor: pointer;
 }

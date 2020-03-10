@@ -8,11 +8,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.min.css">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="content">
-        <div class="header"><span class="apple"></span><span class="app">LMC6313 UX Story</span></div>
+        <div class="header"><span class="apple"></span><span class="app">LMC 6313 UX Story</span></div>
         <div class="footer">
             <div class="footer-bar">
                 <div class="application">
@@ -70,11 +71,14 @@
                 </div>
             </div>
         </div>
-        <div class="sticker draggable">
-            <div class="sticker-bar"></div>
+        <div class="sticker draggable a-window">
+            <div class="sticker-bar">
+            </div>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+
         </div>
 
-        <div class="window draggable">
+        <div class="window draggable a-window">
             <div class="dots">
                 <div class="dot dot1">
                     <img src="assets/dot-cross.png" alt="">
@@ -87,15 +91,32 @@
                     <img src="assets/dot-expand.png" alt="">
 
                 </div>
+
+            </div>
+            <div class="window-content">
+                <!-- <iframe style="border: none;" width="799" height="555" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2Fa2TKQBrfnlO8VKILjAQSRm%2FiOS-11-GUI-for-iPhone-X-Design-Files%3Fnode-id%3D0%253A1" allowfullscreen></iframe> -->
             </div>
         </div>
 
         <script>
+            $(document).ready(() => {
+
+                $(".a-window").mousedown((e) => {
+                    $(".a-window").css("z-index", "10")
+                    $(e.target).closest(".a-window").css("z-index", "999")
+                })
+                $(".dot1").click((e) => {
+                    $(e.target).closest(".window").css("opacity", "0")
+                    console.log("why")
+                })
+            })
+
+
             // target elements with the "draggable" class
             interact('.draggable')
                 .draggable({
                     // enable inertial throwing
-                    inertia: true,
+                    inertia: false,
                     // keep the element within the area of it's parent
                     modifiers: [
                         interact.modifiers.restrictRect({
