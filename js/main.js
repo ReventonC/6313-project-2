@@ -22,8 +22,8 @@ $(document).ready(() => {
         $(".a-window").css("z-index", "10")
         $(e.target).closest(".a-window").css("z-index", "999")
     })
-    $(".dot1").click((e) => {
-        $(e.target).closest(".window").css("opacity", "0")
+    $(".dot1, .dot2").click((e) => {
+        $(e.target).closest(".window").addClass("n")
     })
 
     $(".icon-dash").click((e)=>{
@@ -38,7 +38,14 @@ $(document).ready(() => {
         $(".a-window").css("z-index", "10")
         $(".mail").css("z-index", "999")
     })
+
+    $(".icon-figma").click((e)=>{
+        $(".figma").removeClass("n");
+        $(".a-window").css("z-index", "10")
+        $(".figma").css("z-index", "999")
+    })
 })
+
 
 
 // target elements with the "draggable" class

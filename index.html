@@ -43,7 +43,7 @@
                     <div class="bubble">
                         <p>Figma</p>
                     </div>
-                    <div class="icon">
+                    <div class="icon icon-figma">
                         <img src="assets/Icon-Figma.png" alt="">
                     </div>
                 </div>
@@ -109,7 +109,7 @@
             </div>
         </div>
 
-        <div class="task n window draggable a-window">
+        <div class="task  window draggable a-window">
             <div class="dots">
                 <div class="dot dot1">
                     <img src="assets/dot-cross.png" alt="">
@@ -137,9 +137,10 @@
             <div class="task-right">
                 <div class="task-page page-1">
                     <div class="progress">
-                        Current Progress: {{progress}}%
+                        Current Progress: {{(progress<=0)?0:(progress>=100?100:progress)}}%
                         <div class="progress-bar">
-                            <div class="progress-bar-complete" v-bind:style="{ width: progress +'%' }">
+                            <div class="progress-bar-complete"
+                                v-bind:style="{ width: (progress<=0)?0:(progress>=100?100:progress) +'%' }">
                             </div>
                         </div>
                     </div>
@@ -151,27 +152,27 @@
                     </div>
                     <div class="datagrid">
                         <div class="data">
-                            Client satisfaction
-                            <span class="number">{{client}}</span>
+                            Client satisfaction <br>
+                            <span class="number">{{client}}%</span>
                         </div>
                         <div class="data">
-                            Developer satisfaction
-                            <span class="number">{{developer}}</span>
+                            Developer satisfaction <br>
+                            <span class="number">{{developer}}%</span>
                         </div>
                         <div class="data">
-                            Visual
+                            Visual<br>
                             <span class="number">{{visual}}</span>
                         </div>
                         <div class="data">
-                            Robustness
+                            Robustness<br>
                             <span class="number">{{robustness}}</span>
                         </div>
                         <div class="data">
-                            Innovation
+                            Innovation<br>
                             <span class="number">{{innovation}}</span>
                         </div>
                         <div class="data">
-                            Complexity
+                            Complexity<br>
                             <span class="number">{{complexity}}</span>
                         </div>
                     </div>
@@ -226,18 +227,168 @@
                 </div>
             </div>
             <div class="top">
+                <p class="title">Mail</p>
             </div>
             <div class="mail-content">
                 <div class="mail-left">
                     <div class="mail-from mail-1">
-                        <p class="whofrom">Developer</p>
-                        <p class="subject">Request of ....</p>
+                        <div class="mail-from-head">
+                            <p class="whofrom">Developer</p>
+                            <p class="mailtime">Day {{7-time}}</p>
+                        </div>
+                        <p class="subject">Request of changing...</p>
                         <p> Hi there, I am writing...</p>
-
                     </div>
                 </div>
-                <div class="mail-right">
-                    <div class="mail-text mail-1">mailtext</div>
+                <div class="mail-right scrollbar">
+                    <div class="mail-text mail-1 overflow">
+                        <div class="mail-from">
+                            <div class="mail-from-head">
+                                <p class="whofrom">Developer</p>
+                                <p class="mailtime">Day {{7-time}}</p>
+                            </div>
+                            <p class="subject">Request of changing the animation on landing page</p>
+                            <p>To: You</p>
+                            <p>From: developer@6313.com</p>
+                        </div>
+                        <div class="mail-text-content">
+                            <p>Hi there,</p>
+                            <br>
+                            <p>The animation on the prototype is very hard to implement. I think we should find a
+                                cheaper substitution for it. What do you think?</p>
+                            <br>
+                            <p>Best,</p>
+                            <p>Developer</p>
+                        </div>
+                        <div class="options">
+                            <p class="status">
+                                {{canrespond>=1?"You have not responded to this e-mail yet.":"You have responded to this e-mail."}}
+                            </p>
+                            <div class="option "
+                                v-on:click="(canrespond>=1)&&(progress-=5)&&(developer+=10)&&(visual-=5)&&(canrespond-=1)">
+                                Okay...
+                                <p class="option-result">
+                                    <span class="bad">
+                                        -5% Overall Progress
+                                    </span>
+                                    <span class="bad">
+                                        -5 Visual
+                                    </span>
+                                    <span class="good">
+                                        +10% Developer Satisfaction
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="option "
+                                v-on:click="(canrespond>=1)&&(developer-=8)&&(visual+=Math.floor(Math.random() * (10 + 5 + 1)) - 5)&&(canrespond-=1)">
+                                Nope. We need that animation.
+                                <p class="option-result">
+                                    <span class="random">
+                                        -5 ~ +10 Visual
+                                    </span>
+                                    <span class="bad">
+                                        -8% Developer Satisfaction
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div class="option "
+                                v-on:click="(canrespond>=1)&&(coding>=20)&&(action>=2)&&(action-=2)&&(developer+=20)&&(visual+=10)&&(canrespond-=1)">
+                                Guess what, I can
+                                write that for you.
+                                <p class="requirement">Require coding >= 20 (Currently {{coding}})</p>
+                                <p class="option-result">
+                                    <span class="good">
+                                        +20% Developer Satisfaction
+                                    </span>
+                                    <span class="good">
+                                        +10 Visual
+                                    </span>
+                                    <span class="bad">
+                                        -2 Action points
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="figma window draggable a-window">
+            <div class="dots">
+                <div class="dot dot1">
+                    <img src="assets/dot-cross.png" alt="">
+                </div>
+                <div class="dot dot2">
+                    <img src="assets/dot-bar.png" alt="">
+                </div>
+                <div class="dot dot3">
+                    <img src="assets/dot-expand.png" alt="">
+                </div>
+            </div>
+
+            <div class="figma-content">
+                <p class="title">
+                    What do you want to work on today?
+                </p>
+
+                <div class="options">
+
+                    <div class="option "
+                        v-on:click="(action>0)&&(progress+=8)&&(complexity+=10)&&(visual+=1)&&(action-=1)">
+                        Wireframing
+                        <p class="option-result">
+                            <span class="good">
+                                +8% Overall Progress
+                            </span>
+                            <span class="good">
+                                +10 Complexcity
+                            </span>
+                            <span class="good">
+                                +1 Visual
+                            </span>
+                        </p>
+                    </div>
+                    <div class="option " v-on:click="(action>0)&&(progress+=5)&&(visual+=10)&&(action-=1)">
+                        Design System
+                        <p class="option-result">
+                            <span class="good">
+                                +5% Overall Progress
+                            </span>
+                            <span class="good">
+                                +10 Visual
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="option "
+                        v-on:click="(action>0)&&(progress+=12)&&(visual+=5)&&(robustness+=8)&&(action-=1)">
+                        Prototyping
+                        <p class="option-result">
+                            <span class="good">
+                                +12% Overall Progress
+                            </span>
+                            <span class="good">
+                                +5 Visual
+                            </span>
+                            <span class="good">
+                                +8 Robustness
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nextday window draggable" v-if="action==0">
+            <div class="nextday-content">
+                <p class="title">You ran out of action points today.</p>
+                <p>You have {{time}} day{{time==1?"":"s"}} left. {{(time==0)?"Time to submit your work!":"Keep going!"}}</p>
+
+                <div class="btnNextDay" v-on:click="(action=12)&&((time==0)?(time+=7):(time-=1))">
+                    {{(time!=0)?"Proceed to the next day":"Submit your work!"}}
                 </div>
             </div>
         </div>
@@ -250,10 +401,10 @@
             data: {
                 message: 'Hello Vue!',
                 progress: 0,
-                time: 7,
-                action: 3,
-                client: 0,
-                developer: 0,
+                time: 1,
+                action: 12,
+                client: 50,
+                developer: 50,
                 visual: 0,
                 innovation: 0,
                 robustness: 0,
@@ -263,8 +414,9 @@
                 creativity: 0,
                 graphic: 0,
                 communication: 0,
-                coding: 0,
-                money: 0
+                coding: 20,
+                money: 0,
+                canrespond: 1
             },
             methods: {
                 getTime: function () {
