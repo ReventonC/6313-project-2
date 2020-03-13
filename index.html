@@ -52,7 +52,7 @@
                     <div class="bubble">
                         <p>Illustrator</p>
                     </div>
-                    <div class="icon icon-figma">
+                    <div class="icon">
                         <img src="assets/Icon-AI.png" alt="">
                     </div>
                 </div>
@@ -77,16 +77,22 @@
                     <div class="bubble">
                         <p>VS Code</p>
                     </div>
-                    <div class="icon icon-vs">
+                    <div class="icon icon-vs" v-on:click="(time=3)&&(action=5)&&(progress=0)&&(client=50)&&(developer=50)&&(visual=0)&&(innovation=0)&&(robustness=0)&&(complexity=0)">
                         <img src="assets/Icon-vs.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="sticker draggable a-window">
+        <div class="sticker draggable">
             <div class="sticker-bar">
             </div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea name="" id="" cols="30" rows="10">
+Hello, welcome to the company!
+
+During this {{time}}-week internship, you will work as a UX Designer for the team and work closely with the developers and clients.
+
+Your performance will decide whether your internship can end with a full-time position. Good luck!
+            </textarea>
         </div>
 
         <div class="n window draggable a-window">
@@ -109,7 +115,7 @@
             </div>
         </div>
 
-        <div class="task  window draggable a-window">
+        <div class="task n  window draggable a-window">
             <div class="dots">
                 <div class="dot dot1">
                     <img src="assets/dot-cross.png" alt="">
@@ -315,7 +321,7 @@
             </div>
         </div>
 
-        <div class="figma window draggable a-window">
+        <div class="figma n window draggable a-window">
             <div class="dots">
                 <div class="dot dot1">
                     <img src="assets/dot-cross.png" alt="">
@@ -382,14 +388,95 @@
 
         </div>
 
+        
+        <div class="final-result n result-show">
+            <div class="container">
+                <h1>Final Result</h1>
+                <br>
+                <br>
+                <br>
+
+                <h2 v-if="progress<100">
+                    Hi there,
+                    <br>
+                    <br>
+                    Based on your performance, we decided not to give you a return offer. We wish you all the best in your job searching process.
+                    <br>
+                    <br>
+                    Best, <br>
+                    Hiring Team
+                </h2>
+                <h2 v-else>
+
+                    Hi there,
+                    <br>
+                    <br>
+                    Congratulations! We are impressed by your performance and effort, and our company is pleased to offer you the full-time position of UX Designer! 
+                    <br><br>
+                    Best, <br>
+                    Hiring Team
+                </h2>
+
+
+                <div class="data">
+                    Project Progress:
+                    <span class="number">{{progress}}%</span>
+                    <span v-if="progress<100" style="color:red">Incomplete!</span>
+                    <span v-else style="color:green">Completed!</span>
+                </div>
+                <div class="data">
+                    Client satisfaction:
+                    <span class="number">{{client}}%</span>
+                </div>
+                <div class="data">
+                    Developer satisfaction:
+                    <span class="number">{{developer}}%</span>
+                </div>
+                <div class="data">
+                    Visual:
+                    <span class="number">{{visual}}</span>
+                </div>
+                <div class="data">
+                    Robustness:
+                    <span class="number">{{robustness}}</span>
+                </div>
+                <div class="data">
+                    Innovation:
+                    <span class="number">{{innovation}}</span>
+                </div>
+                <div class="data">
+                    Complexity:
+                    <span class="number">{{complexity}}</span>
+                </div>
+
+                <div class="data">
+                    <b>
+                        Overall: 
+                    <span class="number">{{(visual+robustness+innovation+complexity)/4}}</span>
+                    </b>
+                </div>
+
+
+                <span class="btnRestart" v-on:click="(time=3)&&(action=5)&&(client=50)&&(developer=50)&&(visual=0)&&(innovation=0)&&(robustness=0)&&(complexity=0)&&(progress=0)">
+                    Replay
+                </span>
+            </div>
+
+        </div> 
+
+
         <div class="nextday window draggable" v-if="action==0">
             <div class="nextday-content">
                 <p class="title">You ran out of action points today.</p>
                 <p>You have {{time-1}} week{{time==1?"":"s"}} left. {{(time==1)?"Time to submit your work!":"Keep going!"}}</p>
 
-                <div class="btnNextDay" v-on:click="(action=5)&&((time==1)?(time+=3):(time-=1))">
-                    {{(time!=1)?"Proceed to the next day":"Submit your work!"}}
+                <div v-if="time!=1" class="btnNextDay" v-on:click="(action=5)&&(time-=1)">
+                    Proceed to the next day
                 </div>
+                <div v-else class="btnNextDay btnSubmit" >
+                    Submit your work!
+                </div>
+
             </div>
         </div>
 
@@ -555,7 +642,6 @@
                     this.money += num;
                     console.log(this.money);
                 },
-
 
             },
         })

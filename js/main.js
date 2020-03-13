@@ -44,6 +44,18 @@ $(document).ready(() => {
         $(".a-window").css("z-index", "10")
         $(".figma").css("z-index", "999")
     })
+
+    
+    $(document).on("click", ".btnSubmit",()=>{
+        $(".final-result").removeClass("n");
+        $(".final-result").addClass("result-show", 1000)
+    })
+
+    $(document).on("click", ".btnRestart",()=>{
+        $(".a-window").addClass("n");
+        
+        $(".final-result").addClass("n");
+    })
 })
 
 
