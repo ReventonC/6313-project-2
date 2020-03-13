@@ -145,10 +145,10 @@
                         </div>
                     </div>
                     <div class="time">
-                        You have {{time}} days left.
+                        You have {{time}} week{{(time<=1)?"":"s"}} left.
                     </div>
                     <div class="action">
-                        You have {{action}} actions left today.
+                        You have {{action}} action{{(action<=1)?"":"s"}} left this week.
                     </div>
                     <div class="datagrid">
                         <div class="data">
@@ -234,7 +234,7 @@
                     <div class="mail-from mail-1">
                         <div class="mail-from-head">
                             <p class="whofrom">Developer</p>
-                            <p class="mailtime">Day {{7-time}}</p>
+                            <p class="mailtime">Week {{10-time}} Day {{5-action}}</p>
                         </div>
                         <p class="subject">Request of changing...</p>
                         <p> Hi there, I am writing...</p>
@@ -245,7 +245,7 @@
                         <div class="mail-from">
                             <div class="mail-from-head">
                                 <p class="whofrom">Developer</p>
-                                <p class="mailtime">Day {{7-time}}</p>
+                                <p class="mailtime">Week {{10-time}} Day {{5-action}}</p>
                             </div>
                             <p class="subject">Request of changing the animation on landing page</p>
                             <p>To: You</p>
@@ -336,11 +336,11 @@
                 <div class="options">
 
                     <div class="option "
-                        v-on:click="(action>0)&&(progress+=8)&&(complexity+=10)&&(visual+=1)&&(action-=1)">
+                        v-on:click="(action>0)&&(progress+=6)&&(complexity+=10)&&(visual+=1)&&(action-=1)">
                         Wireframing
                         <p class="option-result">
                             <span class="good">
-                                +8% Overall Progress
+                                +6% Overall Progress
                             </span>
                             <span class="good">
                                 +10 Complexcity
@@ -350,11 +350,11 @@
                             </span>
                         </p>
                     </div>
-                    <div class="option " v-on:click="(action>0)&&(progress+=5)&&(visual+=10)&&(action-=1)">
+                    <div class="option " v-on:click="(action>0)&&(progress+=3)&&(visual+=10)&&(action-=1)">
                         Design System
                         <p class="option-result">
                             <span class="good">
-                                +5% Overall Progress
+                                +3% Overall Progress
                             </span>
                             <span class="good">
                                 +10 Visual
@@ -363,11 +363,11 @@
                     </div>
 
                     <div class="option "
-                        v-on:click="(action>0)&&(progress+=12)&&(visual+=5)&&(robustness+=8)&&(action-=1)">
+                        v-on:click="(action>0)&&(progress+=8)&&(visual+=5)&&(robustness+=8)&&(action-=1)">
                         Prototyping
                         <p class="option-result">
                             <span class="good">
-                                +12% Overall Progress
+                                +8% Overall Progress
                             </span>
                             <span class="good">
                                 +5 Visual
@@ -385,10 +385,10 @@
         <div class="nextday window draggable" v-if="action==0">
             <div class="nextday-content">
                 <p class="title">You ran out of action points today.</p>
-                <p>You have {{time}} day{{time==1?"":"s"}} left. {{(time==0)?"Time to submit your work!":"Keep going!"}}</p>
+                <p>You have {{time-1}} week{{time==1?"":"s"}} left. {{(time==1)?"Time to submit your work!":"Keep going!"}}</p>
 
-                <div class="btnNextDay" v-on:click="(action=12)&&((time==0)?(time+=7):(time-=1))">
-                    {{(time!=0)?"Proceed to the next day":"Submit your work!"}}
+                <div class="btnNextDay" v-on:click="(action=5)&&((time==1)?(time+=3):(time-=1))">
+                    {{(time!=1)?"Proceed to the next day":"Submit your work!"}}
                 </div>
             </div>
         </div>
@@ -401,8 +401,8 @@
             data: {
                 message: 'Hello Vue!',
                 progress: 0,
-                time: 1,
-                action: 12,
+                time: 3,
+                action: 5,
                 client: 50,
                 developer: 50,
                 visual: 0,
